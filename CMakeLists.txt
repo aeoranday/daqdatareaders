@@ -15,14 +15,19 @@ find_package(daq-cmake REQUIRED)
 daq_setup_environment()
 
 
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+find_package(daqdataformats REQUIRED)
+find_package(fddetdataformats REQUIRED)
+find_package(fmt REQUIRED)
+find_package(hdf5libs REQUIRED)
+find_package(trgdataformats REQUIRED)
+#find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 ##############################################################################
 
 
 # See https://dune-daq-sw.readthedocs.io/en/latest/packages/daq-cmake/#daq_add_library
 
-daq_add_library( LINK_LIBRARIES opmonlib::opmonlib) # We need to link in the opmonlib library for Protobuf-generated code to compile
+daq_add_library(*.cpp LINK_LIBRARIES daqdataformats::daqdataformats fddetdataformats::fddetdataformats fmt::fmt hdf5libs::hdf5libs trgdataformats::trgdataformats) # We need to link in the opmonlib library for Protobuf-generated code to compile
 
 ##############################################################################
 
@@ -30,7 +35,7 @@ daq_add_library( LINK_LIBRARIES opmonlib::opmonlib) # We need to link in the opm
 # See https://dune-daq-sw.readthedocs.io/en/latest/packages/daq-cmake/#daq_add_python_bindings
 
 
-daq_add_python_bindings(*.cpp LINK_LIBRARIES ${PROJECT_NAME} ) # Any additional libraries to link in beyond the main library not yet determined
+daq_add_python_bindings(*.cpp LINK_LIBRARIES ${PROJECT_NAME} daqdataformats::daqdataformats fddetdataformats::fddetdataformats hdf5libs::hdf5libs trgdataformats::trgdataformats) # Any additional libraries to link in beyond the main library not yet determined
 
 
 ##############################################################################
@@ -38,7 +43,7 @@ daq_add_python_bindings(*.cpp LINK_LIBRARIES ${PROJECT_NAME} ) # Any additional 
 
 # See https://dune-daq-sw.readthedocs.io/en/latest/packages/daq-cmake/#daq_add_unit_test
 
-daq_add_unit_test(Placeholder_test LINK_LIBRARIES)  # Placeholder_test should be replaced with real unit tests
+#daq_add_unit_test(Placeholder_test LINK_LIBRARIES)  # Placeholder_test should be replaced with real unit tests
 
 ##############################################################################
 
