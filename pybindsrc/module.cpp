@@ -23,7 +23,8 @@ PYBIND11_MODULE(_daq_daqdatareaders_py, m)
   // You'd want to change renameme to the name of a function which
   // you'd like to have a python binding to
 
-  register_renameme(m);
+  register_hdf5_reader(m);
+  register_trigger_primitive_reader(m);
 }
 
 } // namespace dunedaq::daqdatareaders::python
