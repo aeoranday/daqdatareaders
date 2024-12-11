@@ -8,5 +8,10 @@ namespace daqdatareaders {
 //  m_h5_file = std::make_unique<hdf5libs::HDF5RawDataFile>(m_file_name);
 //}
 
+std::vector<std::string>
+HDF5Reader::get_fragment_paths() {
+  return m_fragment_paths;
+}
+
 }
 }
