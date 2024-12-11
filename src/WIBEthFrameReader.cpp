@@ -63,6 +63,16 @@ WIBEthFrameReader::get_adcs(const fddetdataformats::WIBEthFrame& frame) {
   return adcs;
 }
 
+std::tuple<int, int, int>
+WIBEthFrameReader::get_fragment_crate_slot_stream(const std::string& path) {
+  const std::unique_ptr<daqdataformats::Fragment> frag = m_h5_file->get_frag_ptr(path);
+  fddetdataformats::WIBEthFrame* frame_ptr = reinterpret_cast<fddetdataformats::WIBEthFrame*>(frag->get_data());
+
+  detdataformats::DAQEthHeader daq_header = frame_ptr->daq_header;
+
+  return std::make_tuple(int(daq_header.crate_id), int(daq_header.slot_id), int(daq_header.stream_id));
+}
+
 std::vector<std::vector<uint16_t>>
 WIBEthFrameReader::read_fragment(const std::string& path) {
   std::vector<fddetdataformats::WIBEthFrame> frames = HDF5Reader::read_fragment<fddetdataformats::WIBEthFrame>(path);

@@ -7,11 +7,13 @@
 #define DAQDATAREADERS_WIBETHFRAMEREADER_HPP_
 
 #include "daqdatareaders/HDF5Reader.hpp"
+#include "detdataformats/DAQEthHeader.hpp"
 #include "fddetdataformats/WIBEthFrame.hpp"
 
 #include <immintrin.h>
 
 #include <cstdint>
+#include <tuple>
 #include <vector>
 
 namespace dunedaq {
@@ -29,6 +31,8 @@ class WIBEthFrameReader : public HDF5Reader {
     void filter_fragment_paths(const std::vector<std::string>& fragment_paths) override;
 
     std::vector<std::vector<uint16_t>> read_fragment(const std::string& path);
+
+    std::tuple<int, int, int> get_fragment_crate_slot_stream(const std::string& path);
 
     std::vector<std::vector<uint16_t>> read_all_fragments(const std::vector<std::string>& paths);
 

@@ -8,6 +8,7 @@ include(CMakeFindDependencyMacro)
 # find_package calls in your package's CMakeLists.txt file
 
 find_dependency(daqdataformats)
+find_dependency(detdataformats)
 find_dependency(fddetdataformats)
 find_dependency(fmt)
 find_dependency(hdf5libs)

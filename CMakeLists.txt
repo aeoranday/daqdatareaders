@@ -16,6 +16,7 @@ daq_setup_environment()
 
 
 find_package(daqdataformats REQUIRED)
+find_package(detdataformats REQUIRED)
 find_package(fddetdataformats REQUIRED)
 find_package(fmt REQUIRED)
 find_package(hdf5libs REQUIRED)
@@ -24,10 +25,12 @@ find_package(trgdataformats REQUIRED)
 
 ##############################################################################
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2")
+
 
 # See https://dune-daq-sw.readthedocs.io/en/latest/packages/daq-cmake/#daq_add_library
 
-daq_add_library(*.cpp LINK_LIBRARIES daqdataformats::daqdataformats fddetdataformats::fddetdataformats fmt::fmt hdf5libs::hdf5libs trgdataformats::trgdataformats) # We need to link in the opmonlib library for Protobuf-generated code to compile
+daq_add_library(*.cpp LINK_LIBRARIES daqdataformats::daqdataformats detdataformats::detdataformats fddetdataformats::fddetdataformats fmt::fmt hdf5libs::hdf5libs trgdataformats::trgdataformats) # We need to link in the opmonlib library for Protobuf-generated code to compile
 
 ##############################################################################
 
@@ -35,7 +38,7 @@ daq_add_library(*.cpp LINK_LIBRARIES daqdataformats::daqdataformats fddetdatafor
 # See https://dune-daq-sw.readthedocs.io/en/latest/packages/daq-cmake/#daq_add_python_bindings
 
 
-daq_add_python_bindings(*.cpp LINK_LIBRARIES ${PROJECT_NAME} daqdataformats::daqdataformats fddetdataformats::fddetdataformats hdf5libs::hdf5libs trgdataformats::trgdataformats) # Any additional libraries to link in beyond the main library not yet determined
+daq_add_python_bindings(*.cpp LINK_LIBRARIES ${PROJECT_NAME} daqdataformats::daqdataformats detdataformats::detdataformats fddetdataformats::fddetdataformats hdf5libs::hdf5libs trgdataformats::trgdataformats) # Any additional libraries to link in beyond the main library not yet determined
 
 
 ##############################################################################
