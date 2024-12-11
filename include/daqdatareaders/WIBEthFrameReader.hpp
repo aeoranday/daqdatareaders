@@ -9,13 +9,17 @@
 #include "daqdatareaders/HDF5Reader.hpp"
 #include "fddetdataformats/WIBEthFrame.hpp"
 
+#include <immintrin.h>
+
+#include <cstdint>
 #include <vector>
 
 namespace dunedaq {
 namespace daqdatareaders {
 
 class WIBEthFrameReader : public HDF5Reader {
-  std::vector<std::string> m_wibeth_paths;
+  __m256i expand_frame(const __m256i& regi);
+
 
   public:
     WIBEthFrameReader(const std::string& file_name) : HDF5Reader(file_name) {
@@ -24,9 +28,11 @@ class WIBEthFrameReader : public HDF5Reader {
 
     void filter_fragment_paths(const std::vector<std::string>& fragment_paths) override;
 
-    std::vector<fddetdataformats::WIBEthFrame> read_fragment(const std::string& path);
+    std::vector<std::vector<uint16_t>> read_fragment(const std::string& path);
 
-    std::vector<fddetdataformats::WIBEthFrame> read_all_fragments(const std::vector<std::string>& paths);
+    std::vector<std::vector<uint16_t>> read_all_fragments(const std::vector<std::string>& paths);
+
+    std::vector<std::vector<uint16_t>> get_adcs(const fddetdataformats::WIBEthFrame& frame);
 };
 
 } // namespace daqdatareaders
