@@ -25,6 +25,7 @@ PYBIND11_MODULE(_daq_daqdatareaders_py, m)
 
   register_hdf5_reader(m);
   register_trigger_primitive_reader(m);
+  register_wibeth_frame_reader(m);
 }
 
 } // namespace dunedaq::daqdatareaders::python
