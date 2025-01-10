@@ -28,6 +28,12 @@ class HDF5Reader {
       m_h5_file = std::make_unique<hdf5libs::HDF5RawDataFile>(m_file_name);
     }
 
+    std::vector<std::string> get_attribute_names();
+
+    template <typename T>
+    T get_attribute(const std::string& attr_name);
+
+
     virtual ~HDF5Reader() = default;
 
     virtual void filter_fragment_paths(const std::vector<std::string>& fragment_paths) = 0;

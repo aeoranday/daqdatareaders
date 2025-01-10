@@ -13,5 +13,10 @@ HDF5Reader::get_fragment_paths() {
   return m_fragment_paths;
 }
 
+std::vector<std::string>
+HDF5Reader::get_attribute_names() {
+  return m_h5_file->get_attribute_names();
+}
+
 }
 }

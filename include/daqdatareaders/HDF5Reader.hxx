@@ -4,6 +4,11 @@
 namespace dunedaq {
 namespace daqdatareaders {
 
+template <typename T>
+T HDF5Reader::get_attribute(const std::string& attr_name) {
+  return m_h5_file->get_attribute<T>(attr_name);
+}
+
 template <typename RDT>
 std::vector<RDT>
 HDF5Reader::read_fragment(const std::string& path) {

@@ -24,6 +24,9 @@ register_wibeth_frame_reader(py::module& m)
   wibeth_frame_reader
     .def(py::init<const std::string &>())
     .def_property_readonly("wibeth_fragment_paths", &WIBEthFrameReader::get_fragment_paths)
+    .def("get_attribute_names", &WIBEthFrameReader::get_attribute_names)
+    .def("get_attribute", py::overload_cast<const std::string&>(&WIBEthFrameReader::get_attribute<std::string>))
+    .def("get_int_attribute", py::overload_cast<const std::string&>(&WIBEthFrameReader::get_attribute<int>))
     .def("get_fragment_crate_slot_stream", &WIBEthFrameReader::get_fragment_crate_slot_stream)
     .def("read_fragment", &WIBEthFrameReader::read_fragment)
     .def("read_all_fragments", &WIBEthFrameReader::read_all_fragments);
