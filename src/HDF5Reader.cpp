@@ -18,5 +18,11 @@ HDF5Reader::get_attribute_names() {
   return m_h5_file->get_attribute_names();
 }
 
+int
+HDF5Reader::get_trigger_number(const std::string& path) {
+  const std::unique_ptr<daqdataformats::Fragment> frag = m_h5_file->get_frag_ptr(path);
+  return frag->get_trigger_number();
+}
+
 }
 }

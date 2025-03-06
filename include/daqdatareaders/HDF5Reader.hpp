@@ -45,6 +45,8 @@ class HDF5Reader {
 
     template <typename RDT>
     std::vector<RDT> read_all_fragments(const std::vector<std::string>& paths);
+
+    int get_trigger_number(const std::string& path);
 };
 
 } // namespace daqdatareaders
