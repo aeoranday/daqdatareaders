@@ -29,7 +29,23 @@ register_wibeth_frame_reader(py::module& m)
     .def("get_int_attribute", py::overload_cast<const std::string&>(&WIBEthFrameReader::get_attribute<int>))
     .def("get_fragment_crate_slot_stream", &WIBEthFrameReader::get_fragment_crate_slot_stream)
     .def("get_trigger_number", &WIBEthFrameReader::get_trigger_number)
-    .def("read_fragment", &WIBEthFrameReader::read_fragment)
+    .def("read_fragment",
+        [](WIBEthFrameReader& self, std::string& path) {
+          std::vector<uint16_t> adcs = self.read_fragment(path);
+          const size_t num_samples = adcs.size() / WIBEthFrameReader::s_num_channels_per_frame;
+
+          auto adc_ptr = new std::vector<uint16_t>(std::move(adcs));
+
+          py::capsule free_when_done(adc_ptr, [](void *f) {
+              delete reinterpret_cast<std::vector<uint16_t>*>(f);
+          });
+
+          const size_t shape[2] = {WIBEthFrameReader::s_num_channels_per_frame, num_samples};
+          const size_t stride[2] = {sizeof(uint16_t) * num_samples, sizeof(uint16_t)};
+
+          return py::array_t<uint16_t>(shape, stride, adc_ptr->data(), free_when_done);
+        }
+    )
     .def("read_all_fragments", &WIBEthFrameReader::read_all_fragments);
 }
 
