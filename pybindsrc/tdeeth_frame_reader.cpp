@@ -27,7 +27,7 @@ register_tdeeth_frame_reader(py::module& m)
     .def("get_attribute_names", &TDEEthFrameReader::get_attribute_names)
     .def("get_attribute", py::overload_cast<const std::string&>(&TDEEthFrameReader::get_attribute<std::string>))
     .def("get_int_attribute", py::overload_cast<const std::string&>(&TDEEthFrameReader::get_attribute<int>))
-    .def("get_fragment_crate_slot_stream", &TDEEthFrameReader::get_fragment_crate_slot_stream)
+    .def("get_fragment_det_crate_slot_stream", &TDEEthFrameReader::get_fragment_det_crate_slot_stream)
     .def("get_trigger_number", &TDEEthFrameReader::get_trigger_number)
     .def("read_fragment",
         [](TDEEthFrameReader& self, std::string& path) {

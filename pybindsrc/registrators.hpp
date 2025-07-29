@@ -19,6 +19,7 @@ namespace dunedaq::daqdatareaders::python {
   void register_hdf5_reader(pybind11::module&);
   void register_trigger_primitive_reader(pybind11::module&);
   void register_wibeth_frame_reader(pybind11::module&);
+  void register_tdeeth_frame_reader(pybind11::module&);
 
 }
 
