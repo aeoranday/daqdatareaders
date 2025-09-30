@@ -13,6 +13,12 @@ HDF5Reader::get_fragment_paths() {
   return m_fragment_paths;
 }
 
+uint64_t
+HDF5Reader::get_fragment_timestamp(const std::string& path) {
+  const std::unique_ptr<daqdataformats::Fragment> frag = m_h5_file->get_frag_ptr(path);
+  return frag->get_window_begin();
+}
+
 std::vector<std::string>
 HDF5Reader::get_attribute_names() {
   return m_h5_file->get_attribute_names();

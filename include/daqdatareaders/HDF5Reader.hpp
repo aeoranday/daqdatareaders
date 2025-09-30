@@ -10,6 +10,7 @@
 #include "daqdataformats/Fragment.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -39,6 +40,8 @@ class HDF5Reader {
     virtual void filter_fragment_paths(const std::vector<std::string>& fragment_paths) = 0;
 
     std::vector<std::string> get_fragment_paths();
+
+    uint64_t get_fragment_timestamp(const std::string& path);
 
     template <typename RDT>
     std::vector<RDT> read_fragment(const std::string& path);
